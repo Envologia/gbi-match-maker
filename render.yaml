@@ -1,0 +1,25 @@
+services:
+  - type: web
+    name: gbi-match-maker
+    env: python
+    buildCommand: pip install -r requirements-render.txt
+    startCommand: python bot_only.py
+    envVars:
+      - key: DATABASE_URL
+        fromDatabase:
+          name: gbi-match-maker-db
+          property: connectionString
+      - key: TELEGRAM_BOT_TOKEN
+      - key: PORT
+        value: 5000
+        sync: false
+      - key: APP_URL
+        value: https://gbi-match-maker.onrender.com
+      - key: PYTHON_VERSION
+        value: 3.11.6
+
+databases:
+  - name: gbi-match-maker-db
+    databaseName: gbi_match_maker
+    user: gbi_match_maker
+    ipAllowList: []
